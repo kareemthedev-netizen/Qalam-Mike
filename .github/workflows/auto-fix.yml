@@ -1,28 +1,31 @@
-name: 🤖 Auto Fix
+name: "CodeQL"
+
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   schedule:
-    - cron: "0 */6 * * *"
-  workflow_dispatch:
+    - cron: '0 0 * * 0'
 
 jobs:
-  fix:
+  analyze:
+    name: Analyze
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      pull-requests: write
+    
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
       
-      - name: 🔍 AI Review
-        uses: github/copilot-review@v2
-        continue-on-error: true
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript
       
-      - name: 🔧 Apply Fixes
-        run: |
-          npx @github/copilot-cli review --fix --all || true
-      
-      - name: 📤 Deploy to Firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:javascript"
