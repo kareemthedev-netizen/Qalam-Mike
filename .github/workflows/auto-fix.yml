@@ -1,1 +1,28 @@
+name: 🤖 Auto Fix
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
 
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 🔍 AI Review
+        uses: github/copilot-review@v2
+        continue-on-error: true
+      
+      - name: 🔧 Apply Fixes
+        run: |
+          npx @github/copilot-cli review --fix --all || true
+      
+      - name: 📤 Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
