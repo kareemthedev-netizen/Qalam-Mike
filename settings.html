@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الإعدادات - قلم ومايك</title>
+    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='%23e94560'%3E🎙️%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loader-container"><div class="loader-book"><div class="loader-page"></div><div class="loader-page"></div><div class="loader-page"></div></div><p class="loader-text">جاري التحميل</p></div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <canvas id="starCanvas" class="star-canvas"></canvas>
+        <div class="cosmic-bg" id="cosmicBg"></div>
+        <div class="welcome-banner"><p class="welcome-text">الإعدادات</p>
+            <button id="darkModeLevelBtn" class="dark-mode-level" onclick="cycleDarkMode()"><i class="fas fa-moon"></i> <span id="darkModeLabel">ليلي</span></button>
+        </div>
+        <div class="top-ad"><div class="ad-label">⭐ إعلان</div><div class="ad-placeholder"><p>🚀 مساحة إعلانية - للتواصل: kareemthedev@gmail.com</p></div></div>
+
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo"><a href="index.html"><span class="logo-icon">🎙️</span><span class="logo-text">قلم ومايك</span></a></div>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-menu" id="navMenu">
+                    <div class="nav-links"><a href="index.html" class="nav-link"><i class="fas fa-home"></i><span>الرئيسية</span></a><a href="settings.html" class="nav-link active"><i class="fas fa-cog"></i><span>الإعدادات</span></a></div>
+                    <div class="nav-actions"><button id="darkModeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button><div class="nav-user" id="navUser"><a href="login.html" class="login-btn"><i class="fas fa-user"></i><span>دخول</span></a></div></div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-container">
+            <div class="settings-container">
+                <div class="settings-section">
+                    <h3><i class="fas fa-user"></i> الملف الشخصي</h3>
+                    <div class="settings-form">
+                        <div class="form-group"><label>الاسم</label><input type="text" id="settingsName" placeholder="الاسم الكامل"></div>
+                        <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="settingsEmail" placeholder="البريد الإلكتروني" readonly></div>
+                        <div class="form-group"><label>الدولة</label><select id="settingsCountry"><option value="مصر">🇪🇬 مصر</option><option value="السعودية">🇸🇦 السعودية</option><option value="الإمارات">🇦🇪 الإمارات</option><option value="الكويت">🇰🇼 الكويت</option><option value="قطر">🇶🇦 قطر</option><option value="عمان">🇴🇲 عمان</option><option value="البحرين">🇧🇭 البحرين</option><option value="العراق">🇮🇶 العراق</option><option value="الأردن">🇯🇴 الأردن</option><option value="فلسطين">🇵🇸 فلسطين</option><option value="لبنان">🇱🇧 لبنان</option><option value="سوريا">🇸🇾 سوريا</option><option value="تونس">🇹🇳 تونس</option><option value="الجزائر">🇩🇿 الجزائر</option><option value="المغرب">🇲🇦 المغرب</option><option value="ليبيا">🇱🇾 ليبيا</option><option value="السودان">🇸🇩 السودان</option><option value="موريتانيا">🇲🇷 موريتانيا</option><option value="جيبوتي">🇩🇯 جيبوتي</option><option value="الصومال">🇸🇴 الصومال</option></select></div>
+                        <div class="form-group"><label>صورة الملف الشخصي</label><div class="avatar-preview"><span id="settingsAvatar">👤</span><button onclick="changeAvatar()" class="btn-secondary">تغيير</button></div></div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3><i class="fas fa-lock"></i> الأمان</h3>
+                    <div class="settings-form">
+                        <div class="form-group"><label>كلمة المرور الحالية</label><input type="password" id="currentPassword" placeholder="كلمة المرور الحالية"></div>
+                        <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" id="newPassword" placeholder="كلمة المرور الجديدة"></div>
+                        <div class="form-group"><label>تأكيد كلمة المرور</label><input type="password" id="confirmNewPassword" placeholder="تأكيد كلمة المرور"></div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+                    <div class="settings-form">
+                        <label class="checkbox-label"><input type="checkbox" id="notifyLikes"> إشعارات الإعجابات</label>
+                        <label class="checkbox-label"><input type="checkbox" id="notifyComments"> إشعارات التعليقات</label>
+                        <label class="checkbox-label"><input type="checkbox" id="notifyTournaments"> إشعارات البطولات</label>
+                        <label class="checkbox-label"><input type="checkbox" id="notifyMessages"> إشعارات الرسائل</label>
+                    </div>
+                </div>
+                <div class="settings-actions">
+                    <button id="saveSettingsBtn" class="btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> حفظ التغييرات</button>
+                    <button id="deleteAccountBtn" class="btn-danger" onclick="deleteAccount()"><i class="fas fa-trash"></i> حذف الحساب</button>
+                </div>
+            </div>
+            <div class="bottom-ads">
+                <div class="bottom-ad"><div class="ad-label">📢 إعلان</div><div class="ad-placeholder bottom"><p>مساحة إعلانية 1</p></div></div>
+                <div class="bottom-ad"><div class="ad-label">📢 إعلان</div><div class="ad-placeholder bottom"><p>مساحة إعلانية 2</p></div></div>
+                <div class="bottom-ad"><div class="ad-label">📢 إعلان</div><div class="ad-placeholder bottom"><p>مساحة إعلانية 3</p></div></div>
+            </div>
+        </main>
+
+        <footer class="footer"><div class="footer-container"><div class="footer-bottom"><p>© 2026 قلم ومايك</p></div></div></footer>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

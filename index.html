@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>قلم ومايك | منصة الكلمة الحرة</title>
+    <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='70' font-size='70' text-anchor='middle' fill='%23e94560'%3E🎙️%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loader-container">
+            <div class="loader-book"><div class="loader-page"></div><div class="loader-page"></div><div class="loader-page"></div></div>
+            <p class="loader-text">جاري تحميل قلم ومايك</p>
+            <p class="loader-sub">منصة الكلمة الحرة</p>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <canvas id="starCanvas" class="star-canvas"></canvas>
+        <div class="cosmic-bg" id="cosmicBg"></div>
+
+        <div class="welcome-banner">
+            <p id="greetingMessage" class="welcome-text"></p>
+            <div class="online-status" id="onlineStatus"><i class="fas fa-wifi"></i><span>متصل</span></div>
+            <button id="darkModeLevelBtn" class="dark-mode-level" onclick="cycleDarkMode()"><i class="fas fa-moon"></i> <span id="darkModeLabel">ليلي</span></button>
+        </div>
+
+        <div class="top-ad">
+            <div class="ad-label">⭐ إعلان</div>
+            <div class="ad-placeholder">
+                <i class="fas fa-envelope"></i>
+                <p>للتواصل: <strong id="contactEmail">kareemthedev@gmail.com</strong></p>
+                <button class="copy-email" onclick="copyEmail()"><i class="fas fa-copy"></i> نسخ</button>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo"><a href="index.html"><span class="logo-icon">🎙️</span><span class="logo-text">قلم ومايك</span></a></div>
+                <button class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></button>
+                <div class="nav-menu" id="navMenu">
+                    <div class="nav-links">
+                        <a href="index.html" class="nav-link active"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+                        <div class="nav-dropdown">
+                            <button class="nav-dropdown-btn"><i class="fas fa-pen-fancy"></i><span>اكتب</span><i class="fas fa-chevron-down"></i></button>
+                            <div class="nav-dropdown-menu">
+                                <a href="add-story.html"><i class="fas fa-feather-alt"></i> قصة / خاطرة</a>
+                                <a href="beats.html"><i class="fas fa-headphones"></i> بييتة</a>
+                                <a href="memes.html"><i class="fas fa-grin-tongue-squint"></i> ميم</a>
+                            </div>
+                        </div>
+                        <a href="battles.html" class="nav-link"><i class="fas fa-trophy"></i><span>البطولات</span></a>
+                        <a href="profile.html" class="nav-link"><i class="fas fa-user"></i><span>ملفي</span></a>
+                        <div class="nav-dropdown">
+                            <button class="nav-dropdown-btn"><i class="fas fa-ellipsis-h"></i><span>المزيد</span><i class="fas fa-chevron-down"></i></button>
+                            <div class="nav-dropdown-menu">
+                                <a href="explore.html"><i class="fas fa-compass"></i> استكشف</a>
+                                <a href="trending.html"><i class="fas fa-chart-line"></i> الترند</a>
+                                <a href="chat.html"><i class="fas fa-comments"></i> المحادثات</a>
+                                <a href="notifications.html"><i class="fas fa-bell"></i> الإشعارات</a>
+                                <a href="settings.html"><i class="fas fa-cog"></i> الإعدادات</a>
+                                <a href="admin-panel.html"><i class="fas fa-shield-alt"></i> لوحة التحكم</a>
+                                <a href="help-center.html"><i class="fas fa-headset"></i> المساعدة</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-actions">
+                        <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button>
+                        <div class="nav-user" id="navUser"><a href="login.html" class="login-btn"><i class="fas fa-user"></i><span>دخول</span></a></div>
+                        <button id="darkModeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="search-modal" id="searchModal">
+            <div class="search-modal-content">
+                <div class="search-header"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="ابحث..."><button id="closeSearch"><i class="fas fa-times"></i></button></div>
+                <div class="search-results" id="searchResults"></div>
+            </div>
+        </div>
+
+        <main class="main-container">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title"><span class="title-glow typewriter">هنا الكلمة</span><span class="title-accent">حرة</span></h1>
+                    <p class="hero-subtitle">منصة عربية للمبدعين - راب، شعر، بطولات، ميمز</p>
+                    <div class="hero-buttons"><a href="add-story.html" class="btn-primary"><i class="fas fa-feather-alt"></i> ابدأ الكتابة</a><a href="explore.html" class="btn-secondary"><i class="fas fa-compass"></i> استكشف</a></div>
+                </div>
+                <div class="stats-badge">
+                    <div class="stat-item"><i class="fas fa-book"></i><span id="storiesCount">0</span><small>قصة</small></div>
+                    <div class="stat-item"><i class="fas fa-users"></i><span id="usersCount">0</span><small>مستخدم</small></div>
+                    <div class="stat-item"><i class="fas fa-eye"></i><span id="visitsCount">0</span><small>زيارة</small></div>
+                </div>
+            </section>
+
+            <div class="content-grid">
+                <div class="main-feed">
+                    <div class="challenge-card"><div class="challenge-header"><i class="fas fa-trophy"></i><h3>تحدي الأسبوع</h3></div><p class="challenge-topic" id="weeklyBattleTopic">✍️ اكتب 4 أبيات عن "الحرية"</p><button id="joinWeeklyBattleBtn" class="challenge-btn">شارك في التحدي →</button></div>
+                    <div class="categories-tabs">
+                        <button class="cat-tab active" data-filter="all">الكل</button>
+                        <button class="cat-tab" data-filter="شعر">📜 شعر</button>
+                        <button class="cat-tab" data-filter="راب">🎤 راب</button>
+                        <button class="cat-tab" data-filter="باتل">⚔️ باتل</button>
+                        <button class="cat-tab" data-filter="ميم">😂 ميم</button>
+                        <button class="cat-tab" data-filter="بييت">🎧 بييتة</button>
+                        <button class="cat-tab" data-filter="غزل">💕 غزل</button>
+                        <button class="cat-tab" data-filter="كتابة حرة">✍️ كتابة حرة</button>
+                    </div>
+                    <div class="posts-feed" id="storiesGrid"></div>
+                </div>
+
+                <aside class="right-sidebar">
+                    <div class="ranking-card"><div class="card-header"><i class="fas fa-trophy"></i><h4>🏆 المتصدرين</h4></div><div class="ranking-tabs"><button class="rank-tab active" data-rank="rappers">🎤 أفضل MC's</button><button class="rank-tab" data-rank="poets">📜 أفضل شعراء</button><button class="rank-tab" data-rank="trending">🔥 تريند</button></div><div class="ranking-list" id="rankingList"></div></div>
+                    <div class="daily-card"><div class="card-header"><i class="fas fa-calendar-day"></i><h4>📖 كلمة اليوم</h4></div><div class="daily-content"><span class="daily-word" id="dailyWord">الحرية ✨</span><p class="daily-prompt" id="dailyPrompt">اكتب عن شعورك بالحرية</p><button id="rollTopicBtn" class="daily-btn"><i class="fas fa-dice-d6"></i> موضوع عشوائي</button></div></div>
+                    <div class="suggested-card"><div class="card-header"><i class="fas fa-user-plus"></i><h4>✨ قد يعجبك</h4></div><div class="suggested-list" id="suggestedList"></div></div>
+                </aside>
+            </div>
+
+            <div class="bottom-ads">
+                <div class="bottom-ad"><div class="ad-label">📢 إعلان</div><div class="ad-placeholder bottom"><p>مساحة إعلانية 1</p></div></div>
+                <div class="bottom-ad"><div class="ad-label">📢 إعلان</div><div class="ad-placeholder bottom"><p>مساحة إعلانية 2</p></div></div>
+                <div class="bottom-ad"><div class="ad-label">📢 إعلان</div><div class="ad-placeholder bottom"><p>مساحة إعلانية 3</p></div></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand"><div class="footer-logo">🎙️ قلم ومايك</div><p>منصة الكلمة الحرة - للإبداع والتعبير</p><div class="footer-meta"><span>📅 آخر تحديث: <span id="lastUpdate"></span></span><button id="shareSiteBtn" class="share-site-btn"><i class="fas fa-share-alt"></i> شارك الموقع</button></div></div>
+                <div class="footer-links">
+                    <div class="footer-column"><h4>المنصة</h4><a href="about.html">عن قلم ومايك</a><a href="terms.html">ضوابط النشر</a><a href="privacy.html">الخصوصية</a></div>
+                    <div class="footer-column"><h4>روابط سريعة</h4><a href="explore.html">استكشف</a><a href="trending.html">الترند</a><a href="battles.html">البطولات</a></div>
+                    <div class="footer-column"><h4>الدعم</h4><a href="help-center.html">مركز المساعدة</a><a href="faq.html">الأسئلة الشائعة</a><a href="question-bank.html">بنك الأسئلة</a></div>
+                    <div class="footer-column"><h4>تابعنا</h4><div class="footer-social"><a href="https://www.youtube.com/@MrBits-8" class="social-icon youtube"><i class="fab fa-youtube"></i></a><a href="https://whatsapp.com/channel/0029Vb7vA9EHgZWYc8Y56a1w" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i></a><a href="https://www.facebook.com/share/1BGqkqvAhZ/" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a><a href="https://www.tiktok.com/@mr.bits.8" class="social-icon tiktok"><i class="fab fa-tiktok"></i></a></div></div>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>© 2026 قلم ومايك - جميع الحقوق محفوظة</p><p>تم التطوير بواسطة <strong>كريم عاطف</strong> (مواليد 5 سبتمبر 2007)</p></div>
+        </footer>
+
+        <div id="notificationToast" class="notification-toast"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
